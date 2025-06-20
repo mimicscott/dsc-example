@@ -1,0 +1,25 @@
+trigger:
+  branches:
+    include:
+      - '*'
+  paths:
+    include:
+      - scripts
+
+jobs:
+  - job: build
+    pool:
+      vmImage: ubuntu-latest
+
+    steps:
+      - task: PowerShell@2
+        inputs:
+          targetType: filePath
+          filePath: ./scripts/dsc-package.ps1
+          workingDirectory: '$(Build.ArtifactStagingDirectory)'
+        displayName: Build zip package
+
+      - task: PublishPipelineArtifact@1
+        inputs:
+          targetPath: '$(Build.ArtifactStagingDirectory)'
+          artifactName: dsc-package
