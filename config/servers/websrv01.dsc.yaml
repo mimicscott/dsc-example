@@ -1,0 +1,17 @@
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+resources:
+  - name: Install IIS
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
+        - name: Install IIS
+          type: xPSDesiredStateConfiguration/xWindowsFeature
+          properties:
+            Name: Web-Server
+            Ensure: Present
+  - name: Harden IIS
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: "[concat(envvar('DSC_CONFIG'), '/config/roles/', 'harden-iis.dsc.yaml')]"
+    dependsOn:
+      - "[resourceId('Microsoft.Windows/WindowsPowerShell', 'Install IIS')]"

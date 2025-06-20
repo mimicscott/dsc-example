@@ -1,0 +1,46 @@
+$schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+resources:
+  - name: Web server installed
+    type: Microsoft.DSC/Assertion
+    properties:
+      $schema: https://aka.ms/dsc/schemas/v3/bundled/config/document.json
+      resources:
+        - name: IIS present
+          type: xPSDesiredStateConfiguration/xWindowsFeature
+          properties:
+            Name: Web-Server
+            Ensure: Present
+  - name: Benchmark configuration
+    type: Microsoft.Windows/WindowsPowerShell
+    properties:
+      resources:
+        - name: Disable directory browsing
+          type: WebAdministrationDsc/WebConfigProperty
+          properties:
+            WebsitePath: "MACHINE/WEBROOT/APPHOST"
+            Filter: "system.webServer/directoryBrowse"
+            PropertyName: "enabled"
+            Value: "false"
+        - name: Remove WebDav
+          type: xPSDesiredStateConfiguration/xWindowsFeature
+          properties:
+            Name: Web-DAV-Publishing
+            Ensure: Absent
+        - name: Enforce HSTS Header at Server Level
+          type: WebAdministrationDsc/WebConfigPropertyCollection
+          properties:
+            WebsitePath: "MACHINE/WEBROOT/APPHOST"
+            Filter: "system.webServer/httpProtocol"
+            CollectionName: "customHeaders"
+            ItemName: "add"
+            ItemKeyName: "name"
+            ItemKeyValue: "Strict-Transport-Security"
+            ItemPropertyName: "value"
+            ItemPropertyValue: "max-age=31536000; includeSubDomains"
+            Ensure: "Present"
+    dependsOn:
+      - "[resourceId('Microsoft.DSC/Assertion', 'Web server installed')]"
+  - name: Configure crypto
+    type: Microsoft.DSC/Include
+    properties:
+      configurationFile: "[concat(envvar('DSC_CONFIG'), '/config/components/', 'schannel.dsc.yaml')]"
