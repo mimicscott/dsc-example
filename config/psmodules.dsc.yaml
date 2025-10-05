@@ -3,42 +3,42 @@ metadata:
   Microsoft.DSC:
     securityContext: elevated
 resources:
-  - name: Install modules
-    type: Microsoft.Windows/WindowsPowerShell
-    properties:
-      resources:
-        - name: Register LocalRepo
-          type: PowerShellGet/PSRepository
-          properties:
-            Name: LocalRepo
-            SourceLocation: 'C:\ProgramData\PowerShell\LocalRepo\'
-            InstallationPolicy: Trusted
-            Ensure: Present
-        - name: xPSDesiredStateConfiguration module
-          type: PowerShellGet/PSModule
-          properties:
-            Name: xPSDesiredStateConfiguration
-            MinimumVersion: 9.2.1
-            Repository: LocalRepo
-            Ensure: Present
-        - name: ComputerManagement module
-          type: PowerShellGet/PSModule
-          properties:
-            Name: ComputerManagementDsc
-            MinimumVersion: 10.0.0
-            Repository: LocalRepo
-            Ensure: Present
-        - name: WebAdministration module
-          type: PowerShellGet/PSModule
-          properties:
-            Name: WebAdministrationDsc
-            MinimumVersion: 4.2.1
-            Repository: LocalRepo
-            Ensure: Present
-        - name: Schannel module
-          type: PowerShellGet/PSModule
-          properties:
-            Name: SChannelDsc
-            MinimumVersion: 1.4.0
-            Repository: LocalRepo
-            Ensure: Present
+- name: Install modules
+  type: Microsoft.Windows/WindowsPowerShell
+  properties:
+    resources:
+    - name: Register LocalRepo
+      type: PowerShellGet/PSRepository
+      properties:
+        Name: LocalRepo
+        SourceLocation: 'C:\LocalRepo\'
+        InstallationPolicy: Trusted
+        Ensure: Present
+    - name: xPSDesiredStateConfiguration module
+      type: PowerShellGet/PSModule
+      properties:
+        Name: xPSDesiredStateConfiguration
+        MinimumVersion: 9.2.1
+        Repository: LocalRepo
+        Ensure: Present
+    - name: ComputerManagement module
+      type: PowerShellGet/PSModule
+      properties:
+        Name: ComputerManagementDsc
+        MinimumVersion: 10.0.0
+        Repository: LocalRepo
+        Ensure: Present
+    - name: WebAdministration module
+      type: PowerShellGet/PSModule
+      properties:
+        Name: WebAdministrationDsc
+        MinimumVersion: 4.2.1
+        Repository: LocalRepo
+        Ensure: Present
+    - name: Schannel module
+      type: PowerShellGet/PSModule
+      properties:
+        Name: SChannelDsc
+        MinimumVersion: 1.4.0
+        Repository: LocalRepo
+        Ensure: Present

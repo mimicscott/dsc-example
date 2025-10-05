@@ -1,5 +1,5 @@
-$msiUrl = 'https://github.com/PowerShell/PowerShell/releases/download/v7.5.1/PowerShell-7.5.1-win-x64.msi'
-$zipUrl = 'https://github.com/PowerShell/DSC/releases/download/v3.1.0/DSC-3.1.0-x86_64-pc-windows-msvc.zip'
+$msiUrl = 'https://github.com/PowerShell/PowerShell/releases/download/v7.5.3/PowerShell-7.5.3-win-x64.msi'
+$zipUrl = 'https://github.com/PowerShell/DSC/releases/download/v3.2.0-preview.5/DSC-3.2.0-preview.5-x86_64-pc-windows-msvc.zip'
 $msiPath = $msiUrl.Split("/")[-1]
 $zipPath = $zipUrl.Split("/")[-1]
 

@@ -1,6 +1,6 @@
-$destinationPath = 'C:\Program Files\DesiredStateConfiguration'
-$msiPath = ".\PowerShell-7.5.1-win-x64.msi"
-$zipPath = ".\DSC-3.1.0-x86_64-pc-windows-msvc.zip"
+$destinationPath = 'C:\DSC'
+$msiPath = ".\PowerShell-7.5.3-win-x64.msi"
+$zipPath = ".\DSC-3.2.0-preview.5-x86_64-pc-windows-msvc.zip"
 
 # Create destination directory if it doesn't exist
 if (-Not (Test-Path -Path $destinationPath)) {
@@ -27,7 +27,7 @@ if (Test-Path -Path 'C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.
     Remove-Item 'C:\Program Files\WindowsPowerShell\Modules\PowerShellGet\1.0.0.1' -Recurse -Force
 }
 
-$localRepo = "C:\ProgramData\PowerShell\LocalRepo"
+$localRepo = "C:\LocalRepo"
 
 if (-Not (Test-Path -Path $localRepo)) {
     New-Item -Path $localRepo -ItemType Directory -Force
